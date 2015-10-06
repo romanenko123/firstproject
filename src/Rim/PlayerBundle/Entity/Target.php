@@ -5,12 +5,12 @@ namespace Rim\PlayerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Link
+ * Target
  *
- * @ORM\Table(name="playerlink")
- * @ORM\Entity(repositoryClass="Rim\PlayerBundle\Entity\LinkRepository")
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Rim\PlayerBundle\Entity\TargetRepository")
  */
-class Link
+class Target
 {
     /**
      * @var integer
@@ -29,18 +29,18 @@ class Link
     private $name;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="priority", type="integer", unique=true)
+     * @ORM\Column(name="content", type="text")
      */
-    private $priority;
+    private $content;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="available", type="boolean", nullable=true)
+     * @ORM\Column(name="target", type="integer")
      */
-    private $available;
+    private $target;
 
 
     /**
@@ -57,7 +57,7 @@ class Link
      * Set name
      *
      * @param string $name
-     * @return Link
+     * @return Target
      */
     public function setName($name)
     {
@@ -77,48 +77,48 @@ class Link
     }
 
     /**
-     * Set priority
+     * Set content
      *
-     * @param integer $priority
-     * @return Link
+     * @param string $content
+     * @return Target
      */
-    public function setPriority($priority)
+    public function setContent($content)
     {
-        $this->priority = $priority;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get priority
+     * Get content
+     *
+     * @return string 
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set target
+     *
+     * @param integer $target
+     * @return Target
+     */
+    public function setTarget($target)
+    {
+        $this->target = $target;
+
+        return $this;
+    }
+
+    /**
+     * Get target
      *
      * @return integer 
      */
-    public function getPriority()
+    public function getTarget()
     {
-        return $this->priority;
-    }
-
-    /**
-     * Set available
-     *
-     * @param boolean $available
-     * @return Link
-     */
-    public function setAvailable($available)
-    {
-        $this->available = $available;
-
-        return $this;
-    }
-
-    /**
-     * Get available
-     *
-     * @return boolean 
-     */
-    public function getAvailable()
-    {
-        return $this->available;
+        return $this->target;
     }
 }
