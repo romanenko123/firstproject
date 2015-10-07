@@ -25,7 +25,7 @@ class LinkController extends Controller
      */
     public function initiateAction()
     {
-        $main_link = "http://1.kopiyka.club/";
+        $main_link = "http://";
         $html = file_get_contents($main_link);
         
         $carwler = new Crawler($html);
