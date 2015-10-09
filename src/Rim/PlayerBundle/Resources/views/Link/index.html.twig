@@ -28,6 +28,9 @@
                     <li>
                         <a href="{{ path('player_link_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
+                    <li>
+                        <a href="{{ path('player_priority', { 'priority': entity.priority }) }}">decrease priority</a>
+                    </li>
                 </ul>
                 </td>
             </tr>
@@ -37,8 +40,13 @@
 
         <ul>
         <li>
-            <a href="{{ path('player_link_new') }}">
-                Create a new entry
+            <a href="{{ path('player_link_initiate') }}">
+                Create a new entrys
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('process') }}">
+                Start-up
             </a>
         </li>
     </ul>

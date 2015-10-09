@@ -31,7 +31,7 @@ class Link
     /**
      * @var integer
      *
-     * @ORM\Column(name="priority", type="integer", unique=true)
+     * @ORM\Column(name="priority", type="integer", unique=false)
      */
     private $priority;
 

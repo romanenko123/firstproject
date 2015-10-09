@@ -11,6 +11,7 @@ use Rim\PlayerBundle\Entity\Link;
 use Rim\PlayerBundle\Form\LinkType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DomCrawler\Crawler;
+use Rim\PlayerBundle\Entity\Status;
 
 /**
  * Link controller.
@@ -21,11 +22,35 @@ class LinkController extends Controller
 {
     
     /**
+     * @Route("/priority/{priority}", name="player_priority")
+     */
+    public function priorityAction($priority)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('RimPlayerBundle:Link')->findAll();
+        
+        foreach ($entities as $entity) {
+        
+            if ($entity->getPriority() < $priority) {
+                $entity->setPriority(($entity->getPriority()) + 1);
+                $em->flush();
+            } elseif ($entity->getPriority() == $priority) {
+                $entity->setPriority(1);
+                $em->flush();
+            }
+        
+        }
+        
+        return $this->redirect($this->generateUrl('player_link'));
+    }
+    
+    /**
      * @Route("/initiate", name="player_link_initiate")
      */
     public function initiateAction()
     {
-        $main_link = "http://";
+        $main_link = $this->getParameter('needs_url');
+        
         $html = file_get_contents($main_link);
         
         $carwler = new Crawler($html);
@@ -40,11 +65,15 @@ class LinkController extends Controller
             $em->persist($link);
             $em->flush();
             
-//             dump($node->filter('a')->Link()->getUri());
-            dump($link);
         });
         
-        return new Response('Performed ');
+        $status = new Status();
+        $status->setMultiplicity(0);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($status);
+        $em->flush();
+        
+        return $this->redirect($this->generateUrl('player_link'));
     }
 
     /**

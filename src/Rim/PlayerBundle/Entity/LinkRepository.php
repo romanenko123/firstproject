@@ -1,5 +1,4 @@
 <?php
-
 namespace Rim\PlayerBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
@@ -12,4 +11,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class LinkRepository extends EntityRepository
 {
+
+    public function findOneMaxPriority()
+    {
+        return $this->getEntityManager()
+            ->createQuery('SELECT l.name FROM RimPlayerBundle:Link l ORDER BY l.priority DESC')
+            ->setMaxResults(1)
+            ->getSingleScalarResult();
+//         $qb = $this->createQueryBuilder('l')
+//             ->orderBy('l.priority', 'DESC')
+//             ->setMaxResults(1);
+//         $query = $qb->getQuery();
+//         return $query->getResult();
+    }
 }
