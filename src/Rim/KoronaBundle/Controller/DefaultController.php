@@ -21,8 +21,8 @@ class DefaultController extends Controller
             case "robots":
                 return "http://www.koronapromo.com.ua/robots.txt";
                 break;
-            case "logo":
-                return "http://www.koronapromo.com.ua/assets/images/logo.png";
+            case "win":
+                return "http://www.koronapromo.com.ua/winners/list";
                 break;
             default:
                 return  "http://www.homka.ua/robots.txt";
@@ -125,7 +125,9 @@ class DefaultController extends Controller
     public function winnerAction()
     {
         dump($this->getUTime()." - время старта скрипта");
-        $web_tracker = 'http://www.koronapromo.com.ua/winners/list?offset=597';
+//         $web_tracker = 'http://www.koronapromo.com.ua/winners/list?offset=597';
+//         $web_tracker = 'http://www.koronapromo.com.ua/winners/list/777';
+        $web_tracker = 'http://www.koronapromo.com.ua/winners/list';
         $html = file_get_contents($web_tracker);
         for ($i = 0; $i < 100; $i ++) {
             dump($this->getUTime(). " - время начала запроса к серверу ".$i);
