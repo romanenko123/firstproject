@@ -1,3 +1,8 @@
+rim_nestle:
+    resource: "@RimNestleBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 rim_korona:
     resource: "@RimKoronaBundle/Controller/"
     type:     annotation

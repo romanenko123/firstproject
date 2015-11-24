@@ -5,9 +5,25 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DomCrawler\Crawler;
 
 class DefaultController extends Controller
 {
+    /**
+     * @Route("nestle")
+     */
+    public function nestleAction()
+    {
+        dump($this->getUTime());
+        $html = file_get_contents("http://www.nestlebarspromo.com.ua");
+        dump($http_response_header);
+        dump($this->getUTime());
+        $crawler = new Crawler($html);
+        $message = $crawler->filter('html body div#wrapper div#content.fit-screen div.container div.row.prize div.counter div.numbers')->text();
+        dump($message);
+        dump($this->getUTime());
+        return new Response('777');
+    }
 
     private function getNeedLink($link)
     {
@@ -23,6 +39,10 @@ class DefaultController extends Controller
                 break;
             case "win":
                 return "http://www.koronapromo.com.ua/winners/list";
+                break;
+            case "nestle":
+//                 return "http://www.nestlebarspromo.com.ua/winners";
+                return "http://www.nestlebarspromo.com.ua/";
                 break;
             default:
                 return  "http://www.homka.ua/robots.txt";
@@ -57,9 +77,11 @@ class DefaultController extends Controller
                 $new_my_time = $this->getUTime();
         
                 $html = get_headers($web_tracker);
-                $date = $html[2];
+//                 $date = $html[2];
+                $date = $html;
                 $ending_time = $this->getUTime();
-                dump($date. "- время из заголовка");
+//                 dump($date. "- время из заголовка");
+                dump($date);
                 dump($correct_time. "- откорректированное время для запроса");
                 dump($new_my_time. "- реальное время отправки запроса");
                 dump(($new_my_time - $correct_time). "- погрешность запроса");
